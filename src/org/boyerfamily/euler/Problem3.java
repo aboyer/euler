@@ -14,11 +14,11 @@ import static java.lang.Math.*;
  */
 public class Problem3 {
     public static void main(String[] args) {
-        long factor = getLargestFactor(13195);
+        long factor = getLargestPrimeFactor(13195);
         assert factor == 29;
 
         long input = 600851475143L;
-        factor = getLargestFactor(input);
+        factor = getLargestPrimeFactor(input);
         System.out.printf("The largest factor of the number %d is %d.",input,factor);
     }
 
@@ -28,7 +28,7 @@ public class Problem3 {
      * @param input The number we're trying to find a factor for.
      * @return the largest prime factor, or 0 if none could be found.
      */
-    static long getLargestFactor(long input) {
+    static long getLargestPrimeFactor(long input) {
         long limit = round(sqrt(input));
         ArrayList<Long> primeList = getPrimes(limit);
         ListIterator<Long> iter = primeList.listIterator(primeList.size());
