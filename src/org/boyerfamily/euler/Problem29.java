@@ -23,22 +23,19 @@ import static java.math.BigInteger.ONE;
  *
  */
 public class Problem29 {
-    private static final Set<BigInteger> terms = new TreeSet<>();
-    private static final BigInteger LIMIT = new BigInteger("5");
-
     public static void main(String[] args) {
-        for (BigInteger factor = new BigInteger("2"); factor.compareTo(LIMIT) <= 0; factor = factor.add(ONE)) {
+        Set<BigInteger> results = new TreeSet<>();
+        BigInteger limit = new BigInteger("100");
+
+        for (BigInteger factor = new BigInteger("2"); factor.compareTo(limit) <= 0; factor = factor.add(ONE)) {
             BigInteger answer = new BigInteger(factor.toString());
 
-            for (BigInteger exponent = new BigInteger("2"); exponent.compareTo(LIMIT) <= 0; exponent = exponent.add(ONE)) {
+            for (BigInteger exponent = new BigInteger("2"); exponent.compareTo(limit) <= 0; exponent = exponent.add(ONE)) {
                 answer = answer.multiply(factor);
-                if (!terms.contains(answer)) {
-                    System.out.printf("Found new term: %s (%d^%d)\n", answer, factor, exponent);
-                    terms.add(answer);
-                }
+                results.add(answer);
             }
         }
 
-        System.out.printf("Found %d terms.\n", terms.size());
+        System.out.printf("Found %d terms.\n", results.size());
     }
 }

@@ -29,24 +29,14 @@ import org.testng.Assert;
  * Created by : aboyer (5/9/14 14:00)
  */
 public class Problem28 {
-    public static final int SIZE = 5;
-    public static final int TOTAL_SIZE = SIZE * SIZE;
-    public static final int MIDDLE = SIZE / 2;
-    public static final int MAX_INDEX = SIZE - 1;
-
     public static void main(String[] args) {
-        if (SIZE%2 == 1) {
-            throw new RuntimeException("this assumes size is odd, size is: " + SIZE);
-        }
-
         int sum = 1; // Count the center first
+        int prev_corner = 1; // Top right corner for each ring
         for (int sideSize = 3; sideSize <= 1001; sideSize += 2) {
-            int topRight = sideSize * sideSize;
-            int topLeft = topRight - (sideSize-1);
-            int lowerLeft = topLeft - (sideSize-1);
-            int lowerRight = lowerLeft - (sideSize-1);
-            System.out.printf("sum=%d, topRight=%d, topLeft=%d, lowerLeft=%d, lowerRight=%d\n", sum, topRight, topLeft, lowerLeft, lowerRight);
-            sum += topRight + topLeft + lowerLeft + lowerRight;
+            int firstCorner = prev_corner + sideSize - 1;
+            int ringTotal = (4 * firstCorner) + (6 * (sideSize-1));
+            sum += ringTotal;
+            prev_corner = sideSize * sideSize;
         }
         System.out.println("Total is: " + sum);
     }
