@@ -1,7 +1,6 @@
 package org.boyerfamily.euler;
 
-import sun.jvm.hotspot.utilities.Assert;
-import static java.lang.Math.abs;
+import org.testng.Assert;
 
 /**
  * Problem 28:
@@ -25,6 +24,8 @@ import static java.lang.Math.abs;
  - maybe a point helper class
  - n ~ 1M, so the sums should fit in a long
 
+ Second analysis:
+ The top right diagonal appears to be squares of the side (1,3,5,7) -> (1, 9, 25, 49)
  * Created by : aboyer (5/9/14 14:00)
  */
 public class Problem28 {
@@ -34,33 +35,20 @@ public class Problem28 {
     public static final int MAX_INDEX = SIZE - 1;
 
     public static void main(String[] args) {
-        Assert.that(SIZE%2 == 1,"this assumes size is odd");
+        if (SIZE%2 == 1) {
+            throw new RuntimeException("this assumes size is odd, size is: " + SIZE);
+        }
 
-
-//        Poin
-
+        int sum = 1; // Count the center first
+        for (int sideSize = 3; sideSize <= 1001; sideSize += 2) {
+            int topRight = sideSize * sideSize;
+            int topLeft = topRight - (sideSize-1);
+            int lowerLeft = topLeft - (sideSize-1);
+            int lowerRight = lowerLeft - (sideSize-1);
+            System.out.printf("sum=%d, topRight=%d, topLeft=%d, lowerLeft=%d, lowerRight=%d\n", sum, topRight, topLeft, lowerLeft, lowerRight);
+            sum += topRight + topLeft + lowerLeft + lowerRight;
+        }
+        System.out.println("Total is: " + sum);
     }
 
-//    class Point {
-//        int x, y;
-//
-//        Point(int x, int y) {
-//            this.x = x;
-//            this.y = y;
-//        };
-//
-//        public boolean isDiagonal() {
-//            // Figure out the absolute value from the center point, both x and y.
-//            // If those are equal, it's a diagonal
-//            if ((abs(x - MIDDLE)) == (abs(y - MIDDLE))) {
-//                return true;
-//            }
-//
-//            return false;
-//        };
-//
-//        public Point nextPoint() {
-//
-//        };
-//    }
 }

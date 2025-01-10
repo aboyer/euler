@@ -20,26 +20,35 @@ import static java.lang.Math.sqrt;
  * Created by : aboyer (5/1/12 1:13 PM)
  */
 public class Problem4 {
+    private static final int MAX_NUM = 999;
+
     public static void main(String[] args) {
-        long num = 999 * 999; // The largest product of two numbers
+//        Prime.loadPrimes();
+
+        long startTime = System.nanoTime();
+        long num = MAX_NUM * MAX_NUM; // The largest product of two numbers
 
         // Start at the top, since we're trying to find a max
         while (num > 0) {
             // First filter on palindromes, most numbers won't be one.
             if (isPalindrome(num)) {
                 // Now, we need to decide if this number has two three digit factors
-                long limit = min(999,num/2+1);
-                long factor = getThreeDigitFactor(num,limit);
+                long limit = min(MAX_NUM,num/2+1);
+                long factor = getFactor(num,limit);
                 if (factor > 0 && (num % (num/factor) == 0)) {
-                    System.out.printf("Found factors (%d and %d) for palindrome number %d.",factor,num/factor,num);
-                    System.exit(0);
+                    System.out.printf("Found factors (%d and %d) for palindrome number %d.\n",factor,num/factor,num);
+//                    System.exit(0);
+                    break;
                 }
             }
             num--;
         }
+
+        long stopTime = System.nanoTime();
+        System.out.println("Time was: " + (stopTime - startTime));
     }
 
-    static long getThreeDigitFactor(long number, long prevFactor) {
+    static long getFactor(long number, long prevFactor) {
         long factor = prevFactor;
 
         while (factor > 1) {

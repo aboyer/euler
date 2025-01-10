@@ -1,5 +1,7 @@
 package org.boyerfamily.euler;
 
+import org.boyerfamily.euler.utils.Prime;
+
 import java.util.ArrayList;
 import java.util.ListIterator;
 import static java.lang.Math.*;
@@ -68,19 +70,6 @@ public class Problem3 {
      * @return True if input is prime, false otherwise.
      */
     static boolean isPrime(long candidate) {
-        if (candidate == 2)
-            return true;
-
-        if (candidate < 2 || candidate % 2 == 0) // The only even prime is 2
-            return false;
-
-
-        long limit = round(sqrt(candidate));
-        for (long l = 3; l<= limit; l+=2) {
-            if (candidate%l == 0)
-                return false;
-        }
-
-        return true;
+        return Prime.isPrime(candidate);
     }
 }

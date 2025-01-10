@@ -1,9 +1,8 @@
 package org.boyerfamily.euler;
 
-import java.util.ArrayList;
+import org.boyerfamily.euler.utils.Prime;
 
 import static java.lang.Math.round;
-import static java.lang.Math.sqrt;
 
 /**
  * Project Euler, Problem 7:
@@ -47,19 +46,6 @@ public class Problem7 {
      * @return True if input is prime, false otherwise.
      */
     static boolean isPrime(long candidate) {
-        if (candidate == 2)
-            return true;
-
-        if (candidate < 2 || candidate % 2 == 0) // The only even prime is 2
-            return false;
-
-
-        long limit = round(sqrt(candidate));
-        for (long l = 3; l<= limit; l+=2) {
-            if (candidate%l == 0)
-                return false;
-        }
-
-        return true;
+        return Prime.isPrime(candidate);
     }
 }

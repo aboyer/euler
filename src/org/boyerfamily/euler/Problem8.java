@@ -2,7 +2,7 @@ package org.boyerfamily.euler;
 
 /**
  * Project Euler, Problem 8:
- *  Find the greatest product of five consecutive digits in the 1000-digit number.
+ *  Find the greatest product of 13 consecutive digits in the 1000-digit number.
 
  Test number : "7316717653133"=1764
 
@@ -51,21 +51,17 @@ public class Problem8 {
             "84580156166097919133875499200524063689912560717606" +
             "05886116467109405077541002256983155200055935729725" +
             "71636269561882670428252483600823257530420752963450";
-    public static final int DIGIT_COUNT = 5;
+    public static final int DIGIT_COUNT = 13;
 
     public static void main(String[] args) {
-        int product = productAt(0);
-        int max = product;
+        long product = productAt(0);
+        long max = product;
         int maxStart=0;
-//        System.out.printf("Found new max %d, starting at %d, digits (%s)\n",product,maxStart,NUMBER.substring(maxStart,maxStart+DIGIT_COUNT));
 
         for (int i=1; i<=NUMBER.length()-DIGIT_COUNT; i++) {
-//            System.out.printf("Checking at %d, digits (%s)\n",i,NUMBER.substring(i,i+DIGIT_COUNT));
+            product = productAt(i);
 
-            if (numberAt(i-1) > 0)
-                product = product / numberAt(i-1) * numberAt(i+DIGIT_COUNT-1);
-            else
-                product = productAt(i);
+//            System.out.printf("Checking at %d, sum %d, digits (%s)\n",i, product, NUMBER.substring(i,i+DIGIT_COUNT));
 
             if (product > max) {
 //                System.out.printf("Found new max %d, starting at %d, digits (%s)\n",product,i,NUMBER.substring(i,i+DIGIT_COUNT));
@@ -77,8 +73,12 @@ public class Problem8 {
         System.out.printf("Found max product %d, starting at index %d, digits (%s)\n",max,maxStart,NUMBER.substring(maxStart,maxStart+DIGIT_COUNT));
     }
 
-    static int productAt(int index) {
-        return numberAt(index) * numberAt(index+1) * numberAt(index+2) * numberAt(index+3) * numberAt(index+4);
+    static long productAt(int index) {
+        long product = 1;
+        for (int i=0; i<DIGIT_COUNT; i++) {
+            product *= numberAt(index+i);
+        }
+        return product;
     }
 
     static int numberAt(int index) {
